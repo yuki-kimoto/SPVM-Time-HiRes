@@ -1,3 +1,86 @@
 class Time::HiRes {
+  use Sys::Time;
+  use Sys::Time::Timeval;
+  use Sys::Time::Timezone;
+
+  static method IV_1E6 : long { return 1000000L; }
+  static method IV_1E7 : long { return 10000000L; }
+  static method IV_1E9 : long { return 1000000000L; }
+   
+  static method NV_1E6 : double { return 1000000.0; }
+  static method NV_1E7 : double { return 10000000.0; }
+  static method NV_1E9 : double { return 1000000000.0; }
+  
+  static method gettimeofday : long[] () {
+    my $tv = Sys::Time::Timeval->new;
+    Sys::Time->gettimeofday($tv, undef);
+    
+    my $ret = new long[2];
+    $ret->[0] = $tv->tv_sec;
+    $ret->[1] = $tv->tv_usec;
+    
+    return $ret;
+  }
+  
+  static method usleep : int ($usec : long) {
+    return Sys::Time->usleep($usec);
+  }
+  
+  static method nanosleep : int ($rqtp : Sys::Time::Timespec, $rmtp : Sys::Time::Timespec) {
+    return Sys::Time->nanosleep($rqtp, $rmtp);
+  }
+  
+  static method ualarm : int ($usecs : int, $interval : int) {
+    return Sys::Time->ualarm($usecs, $interval);
+  }
+  
+  static method tv_interval : double ($a : Sys::Time::Timeval, $b = undef : Sys::Time::Timeval) {
+    
+    unless ($b) {
+      $b = &gettimeofday;
+    }
+    
+    my $tv_interval = ($b->[0] - $a->[0]) + ($b->[0] - $a->[0]) / 1_000_000;
+    
+    return $tv_interval;
+  }
+  
+  setitimer ( $which, $floating_seconds [, $interval_floating_seconds ] )
+  getitimer ( $which )
+  
+  static method clock_gettime : int ($clk_id : int, $ts : Sys::Time::Timespec);
+    
+    my $ts = Sys::Time::Timespec->new;
+    
+    my $status = Sys::Time->clock_gettime($clk_id, &ts);
+    
+    my $ret = -1.0;
+    if ($status == 0) {
+      $ret = $ts->tv_sec + ($ts->tv_nsec / &NV_1E9);
+    }
+    
+    return $ret;
+  }
+
+  static method clock_getres : int ($clk_id : int, $ts : Sys::Time::Timespec);
+    
+    my $ts = Sys::Time::Timespec->new;
+    
+    my $status = Sys::Time->clock_getres($clk_id, &ts);
+    
+    my $ret = -1.0;
+    if ($status == 0) {
+      $ret = $ts->tv_sec + ($ts->tv_nsec / &NV_1E9);
+    }
+    
+    return $ret;
+  }
+  
+  clock_nanosleep ( $which, $nanoseconds, $flags = 0)
+  clock()
+  utime LIST
 
 }
+
+long　tv_sec;
+　　　　　　　　　long　tv_usec;
