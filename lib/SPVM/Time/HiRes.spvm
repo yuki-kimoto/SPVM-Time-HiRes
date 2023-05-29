@@ -34,7 +34,7 @@ class Time::HiRes {
     return Sys::Time->ualarm($usecs, $interval);
   }
   
-  static method tv_interval : double ($a : Sys::Time::Timeval, $b = undef : Sys::Time::Timeval) {
+  static method tv_interval : double ($a : Sys::Time::Timeval, $b : Sys::Time::Timeval = undef) {
     
     unless ($b) {
       $b = &gettimeofday;
