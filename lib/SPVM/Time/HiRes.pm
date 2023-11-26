@@ -1,6 +1,6 @@
 package SPVM::Time::HiRes;
 
-our $VERSION = '0.01';
+our $VERSION = '0.001';
 
 1;
 
@@ -30,7 +30,7 @@ C<SPVM::Time::HiRes> is the C<Time::HiRes> class in L<SPVM> language.
 
 =head1 Repository
 
-
+L<SPVM::Time::HiRes - Github|https://github.com/yuki-kimoto/SPVM-Time-HiRes>
 
 =head1 Author
 
@@ -38,8 +38,6 @@ Yuki Kimoto C<kimoto.yuki@gmail.com>
 
 =head1 Copyright & License
 
-Copyright 2023-2023 Yuki Kimoto, all rights reserved.
+Copyright (c) 2023 Yuki Kimoto
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
+MIT License

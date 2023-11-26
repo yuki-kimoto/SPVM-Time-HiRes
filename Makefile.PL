@@ -18,11 +18,11 @@ unless ($meta) {
   # Do something such as environment check.
 }
 
-my %configure_and_runtime_requires = ('SPVM' => '0.9692');
+my %configure_and_runtime_requires = ('SPVM' => '0.989063');
 WriteMakefile(
   NAME              => 'SPVM::Time::HiRes',
   VERSION_FROM      => 'lib/SPVM/Time/HiRes.pm',
-  LICENSE           => 'perl_5',
+  LICENSE           => 'mit',
   ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
     (ABSTRACT_FROM  => 'lib/SPVM/Time/HiRes.pm',
      AUTHOR         => 'USER_NAME<USER_MAIL>') : ()),
@@ -33,8 +33,8 @@ WriteMakefile(
     resources => {
       repository => {
         type => 'git',
-        url  => '',
-        web  => '',
+        url  => 'https://github.com/yuki-kimoto/SPVM-Time-HiRes.git',
+        web  => 'https://github.com/yuki-kimoto/SPVM-Time-HiRes',
       },
     },
     no_index => {
@@ -44,6 +44,7 @@ WriteMakefile(
   NORECURS => 1,
   CONFIGURE_REQUIRES => {
     %configure_and_runtime_requires,
+    'SPVM::Sys' => '0.502',
   },
   PREREQ_PM         => {
     %configure_and_runtime_requires,
