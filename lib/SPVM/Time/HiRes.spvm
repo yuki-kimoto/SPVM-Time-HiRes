@@ -82,7 +82,13 @@ class Time::HiRes {
   }
   
   # clock_nanosleep ( $which, $nanoseconds, $flags = 0)
-  # clock()
+  
+  static method clock : long () {
+    my $cpu_time = Sys::Time->clock;
+    
+    return $cpu_time;
+  }
+  
   # utime LIST
   
   private static method IV_1E6 : long () { return 1000000L; }
