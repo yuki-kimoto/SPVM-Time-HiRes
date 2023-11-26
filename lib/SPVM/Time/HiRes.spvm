@@ -11,14 +11,7 @@ class Time::HiRes {
   use Sys::Signal;
   use Sys::Process;
   
-  static method IV_1E6 : long () { return 1000000L; }
-  static method IV_1E7 : long () { return 10000000L; }
-  static method IV_1E9 : long () { return 1000000000L; }
-   
-  static method NV_1E6 : double () { return 1000000.0; }
-  static method NV_1E7 : double () { return 10000000.0; }
-  static method NV_1E9 : double () { return 1000000000.0; }
-  
+  # Class Methods
   static method gettimeofday : Sys::Time::Timeval () {
   
     my $tv = Sys::Time::Timeval->new;
@@ -91,4 +84,17 @@ class Time::HiRes {
   # clock_nanosleep ( $which, $nanoseconds, $flags = 0)
   # clock()
   # utime LIST
+  
+  private static method IV_1E6 : long () { return 1000000L; }
+  
+  private static method IV_1E7 : long () { return 10000000L; }
+  
+  private static method IV_1E9 : long () { return 1000000000L; }
+  
+  private static method NV_1E6 : double () { return 1000000.0; }
+  
+  private static method NV_1E7 : double () { return 10000000.0; }
+  
+  private static method NV_1E9 : double () { return 1000000000.0; }
+  
 }
