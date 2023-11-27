@@ -121,4 +121,40 @@ class Time::HiRes::Util {
     return $ts_interspec;
   }
   
+  static method float_seconds_to_nanoseconds : long ($float_seconds : double) {
+    
+    unless ($float_seconds <= Fn->INT_MAX) {
+      die "\$float_seconds must be less than or equal to Fn->INT_MAX.";
+    }
+    
+    my $nanoseconds = (long)($float_seconds * 1_000_000_000);
+    
+    return $nanoseconds;
+  }
+  
+  static method nanoseconds_to_float_seconds : double ($nanoseconds : long) {
+    
+    my $float_seconds = $nanoseconds / 1_000_000_000;
+    
+    return $float_seconds;
+  }
+  
+  static method float_seconds_to_microseconds : long ($float_seconds : double) {
+    
+    unless ($float_seconds <= Fn->INT_MAX) {
+      die "\$float_seconds must be less than or equal to Fn->INT_MAX.";
+    }
+    
+    my $microseconds = (long)($float_seconds * 1_000_000);
+    
+    return $microseconds;
+  }
+  
+  static method microseconds_to_float_seconds : double ($microseconds : long) {
+    
+    my $float_seconds = $microseconds / 1_000_000;
+    
+    return $float_seconds;
+  }
+  
 }

@@ -71,24 +71,24 @@ class Time::HiRes {
   
   static method sleep : double ($float_seconds : double) {
     
-    my $microseconds = (int)($float_seconds * 1_000_000);
+    my $microseconds = (int)Time::HiRes::Util->float_seconds_to_microseconds($float_seconds);
     
     my $slept_time = &usleep($microseconds);
     
-    my $slept_time_float_seconds = (double)$slept_time / 1_000_000;
+    my $slept_time_float_seconds = (double)Time::HiRes::Util->microseconds_to_float_seconds($slept_time);
     
     return $slept_time_float_seconds;
   }
   
   static method alarm : double ($float_seconds : double, $interval_float_seconds : double = 0) {
     
-    my $usecs = (int)($float_seconds * 1_000_000);
+    my $usecs = (int)Time::HiRes::Util->float_seconds_to_microseconds($float_seconds);
     
-    my $interval = (int)($interval_float_seconds * 1_000_000);
+    my $interval = (int)Time::HiRes::Util->float_seconds_to_microseconds($interval_float_seconds);
     
     my $remain_time = &ualarm($usecs, $interval);
     
-    my $remain_time_float_seconds = (double)$remain_time / 1_000_000;
+    my $remain_time_float_seconds = (double)Time::HiRes::Util->microseconds_to_float_seconds($remain_time);
     
     return $remain_time_float_seconds;
   }
