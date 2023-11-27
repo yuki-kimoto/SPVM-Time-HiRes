@@ -1,14 +1,3 @@
-0.002 2023-11-27
-  [Incompatible Changes]
-    * The following method definitions in the Time::HiRes are changed.
-      [Before]
-      static method clock_gettime : double ($clk_id : int);>
-      static method clock_getres : double ($clk_id : int);
-      
-      [After]
-      static method clock_gettime : Sys::Time::Timespec ($clk_id : int);>
-      static method clock_getres : Sys::Time::Timespec ($clk_id : int);
-      
 0.001 2023-11-27
   [Changes]
     * First release.
