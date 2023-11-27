@@ -6,11 +6,11 @@ our $VERSION = '0.001';
 
 =head1 Name
 
-SPVM::Time::HiRes - Short Description
+SPVM::Time::HiRes - High Resolution Time
 
 =head1 Description
 
-C<SPVM::Time::HiRes> is the C<Time::HiRes> class in L<SPVM> language.
+The Time::HiRes class in L<SPVM> has methods to manipulate high resolution time.
 
 =head1 Usage
 
@@ -32,7 +32,7 @@ C<static method nanosleep : long ($nanoseconds : long);>
 
 =head2 tv_interval
 
-C<static method tv_interval : double ($a : Sys::Time::Timeval, $b : Sys::Time::Timeval = undef);>
+C<static method tv_interval : double ($a : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval>, $b : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> = undef);>
 
 =head2 time
 
@@ -52,11 +52,11 @@ C<static method alarm : double ($float_seconds : double, $interval_float_seconds
 
 =head2 setitimer
 
-C<static method setitimer : Time::HiRes::ItimervalFloat ($which : int, $new_itimer_float : Time::HiRes::ItimervalFloat);>
+C<static method setitimer : L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::ItimervalFloat> ($which : int, $new_itimer_float : L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::ItimervalFloat>);>
 
 =head2 getitimer
 
-C<static method getitimer : Time::HiRes::ItimervalFloat ($which : int);>
+C<static method getitimer : L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::ItimervalFloat> ($which : int);>
 
 =head2 clock_gettime
 
@@ -69,6 +69,10 @@ C<static method clock_getres : double ($clk_id : int);>
 =head2 clock_nanosleep
 
 C<static method clock_nanosleep : long ($clockid : int, $nanoseconds : long, $flags : int = 0);>
+
+=head2 clock
+
+C<static method clock : long ();>
 
 =head1 Repository
 
