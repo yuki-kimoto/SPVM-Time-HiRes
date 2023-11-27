@@ -60,19 +60,57 @@ C<static method getitimer : L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::Iti
 
 =head2 clock_gettime
 
-C<static method clock_gettime : double ($clk_id : int);>
+C<static method clock_gettime : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> ($clk_id : int);>
+
+Returns the time of the specified clock $clk_id.
+
+See L<Sys::Time::Constant|SPVM::Sys::Time::Constant> about constant values given to $clockid.
+
+See the L<clock_gettime|SPVM::Sys::Time/"clock_gettime"> method in the Sys::Time class in detail.
+
+Exceptions:
+
+The exceptions thrown by the L<clock_gettime|SPVM::Sys::Time/"clock_gettime"> method in the Sys::Time class could be thrown.
 
 =head2 clock_getres
 
-C<static method clock_getres : double ($clk_id : int);>
+C<static method clock_getres : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> ($clk_id : int);>
+
+Returns the resolution (precision) of the specified clock $clk_id.
+
+See L<Sys::Time::Constant|SPVM::Sys::Time::Constant> about constant values given to $clockid.
+
+See the L<clock_getres|SPVM::Sys::Time/"clock_getres"> method in the Sys::Time class in detail.
+
+Exceptions:
+
+The exceptions thrown by the L<clock_getres|SPVM::Sys::Time/"clock_getres"> method in the Sys::Time class could be thrown.
 
 =head2 clock_nanosleep
 
 C<static method clock_nanosleep : long ($clockid : int, $nanoseconds : long, $flags : int = 0);>
 
+Sleeps for nanoseconds $nanoseconds and returns remaining time.
+
+See L<Sys::Time::Constant|SPVM::Sys::Time::Constant> about constant values given to $clockid and $flags.
+
+See the L<clock_nanosleep|SPVM::Sys::Time/"clock_nanosleep"> method in the Sys::Time class in detail.
+
+Exceptions:
+
+The exceptions thrown by the L<clock_nanosleep|SPVM::Sys::Time/"clock_nanosleep"> method in the Sys::Time class could be thrown.
+
 =head2 clock
 
 C<static method clock : long ();>
+
+Returns an approximation of processor time used by the program.
+
+See the L<clock|SPVM::Sys::Time/"clock"> method in the Sys::Time class in detail.
+
+Exceptions:
+
+The exceptions thrown by the L<clock|SPVM::Sys::Time/"clock"> method in the Sys::Time class could be thrown.
 
 =head1 See Also
 
