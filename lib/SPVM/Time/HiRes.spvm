@@ -7,13 +7,11 @@ class Time::HiRes {
   
   use Fn;
   use Sys::Time;
-  use Sys::Time::Timezone;
   use Sys::Signal;
   use Sys::Process;
   use Sys::Time::Timeval;
   use Sys::Time::Timespec;
   use Sys::Time::Itimerval;
-  
   use Time::HiRes::ItimervalFloat;
   use Time::HiRes::Util;
   
@@ -66,7 +64,12 @@ class Time::HiRes {
   }
   
   static method time : double () {
-    die "This method is not implemented because it's clear that the lack of precision will cause future bugs.";
+    
+    my $tv = &gettimeofday;
+    
+    my $float_seconds = (double)Time::HiRes::Util->timeval_to_float_seconds($tv);
+    
+    return $float_seconds;
   }
   
   static method sleep : double ($float_seconds : double) {
