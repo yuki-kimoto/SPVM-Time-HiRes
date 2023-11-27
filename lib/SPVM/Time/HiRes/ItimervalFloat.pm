@@ -6,11 +6,11 @@ package SPVM::Time::HiRes::ItimervalFloat;
 
 =head1 Name
 
-SPVM::Time::HiRes::ItimervalFloat - Short Description
+SPVM::Time::HiRes::ItimervalFloat - Floating Point Representation of Sys::Time::Itimerval
 
 =head1 Description
 
-The Time::HiRes::ItimervalFloat class of L<SPVM> has methods to do someting.
+The Time::HiRes::ItimervalFloat class of L<SPVM> represents floating point representation of L<Sys::Time::Itimerval|SPVM::Sys::Time::Itimerval>.
 
 =head1 Usage
 
@@ -18,24 +18,23 @@ The Time::HiRes::ItimervalFloat class of L<SPVM> has methods to do someting.
 
 =head1 Fields
 
+=head2 it_interval
 
+C<has it_interval : rw double;>
+
+Gets and sets the C<it_interval> field.
+
+=head2 it_value
+
+C<has it_value : rw double;>
+
+Gets and sets the C<it_interval> field.
 
 =head1 Class Methods
 
+C<static method new : L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::ItimervalFloat> ();>
 
-
-=head1 Instance Methods
-
-
-
-
-=head1 Repository
-
-
-
-=head1 Author
-
-Yuki Kimoto C<kimoto.yuki@gmail.com>
+Creates a new L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::ItimervalFloat> object and returns it.
 
 =head1 Copyright & License
 
