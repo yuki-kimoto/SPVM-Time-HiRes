@@ -62,7 +62,7 @@ class Time::HiRes {
     
     my $ret = -1.0;
     if ($status == 0) {
-      $ret = $ts->tv_sec + ($ts->tv_nsec / &NV_1E9);
+      $ret = $ts->tv_sec + ($ts->tv_nsec / 1_000_000_000.0);
     }
     
     return $ret;
@@ -76,7 +76,7 @@ class Time::HiRes {
     
     my $ret = -1.0;
     if ($status == 0) {
-      $ret = $ts->tv_sec + ($ts->tv_nsec / &NV_1E9);
+      $ret = $ts->tv_sec + ($ts->tv_nsec / 1_000_000_000.0);
     }
     
     return $ret;
@@ -128,17 +128,5 @@ class Time::HiRes {
   }
   
   # utime LIST
-  
-  private static method IV_1E6 : long () { return 1000000L; }
-  
-  private static method IV_1E7 : long () { return 10000000L; }
-  
-  private static method IV_1E9 : long () { return 1000000000L; }
-  
-  private static method NV_1E6 : double () { return 1000000.0; }
-  
-  private static method NV_1E7 : double () { return 10000000.0; }
-  
-  private static method NV_1E9 : double () { return 1000000000.0; }
   
 }
