@@ -67,7 +67,7 @@ class Time::HiRes {
     
     my $tv = &gettimeofday;
     
-    my $float_seconds = (double)Time::HiRes::Util->timeval_to_float_seconds($tv);
+    my $float_seconds = Time::HiRes::Util->timeval_to_float_seconds($tv);
     
     return $float_seconds;
   }
@@ -78,7 +78,7 @@ class Time::HiRes {
     
     my $slept_time = &usleep($microseconds);
     
-    my $slept_time_float_seconds = (double)Time::HiRes::Util->microseconds_to_float_seconds($slept_time);
+    my $slept_time_float_seconds = Time::HiRes::Util->microseconds_to_float_seconds($slept_time);
     
     return $slept_time_float_seconds;
   }
@@ -91,7 +91,7 @@ class Time::HiRes {
     
     my $remain_time = &ualarm($usecs, $interval);
     
-    my $remain_time_float_seconds = (double)Time::HiRes::Util->microseconds_to_float_seconds($remain_time);
+    my $remain_time_float_seconds = Time::HiRes::Util->microseconds_to_float_seconds($remain_time);
     
     return $remain_time_float_seconds;
   }

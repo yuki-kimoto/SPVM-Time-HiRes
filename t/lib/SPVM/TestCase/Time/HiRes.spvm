@@ -1,27 +1,91 @@
 class TestCase::Time::HiRes {
   use Time::HiRes;
+  use Sys;
+  use Format;
   
   static method gettimeofday : int () {
+    
+    my $time_tv = Time::HiRes->gettimeofday;
+    
+    my $tv_sec = $time_tv->tv_sec;
+    
+    my $tv_usec = $time_tv->tv_usec;
+    
+    warn "[Test Output]gettimeofday:tv_sec:$tv_sec";
+    
+    warn "[Test Output]gettimeofday:tv_sec:$tv_usec";
+    
+    unless ($tv_sec > 0) {
+      return 0;
+    }
     
     return 1;
   }
   
   static method usleep : int () {
     
+    my $remain = Time::HiRes->usleep(1_000);
+    
+    unless ($remain == 0) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method nanosleep : int () {
+    
+    my $remain = Time::HiRes->nanosleep(1_000_000);
+    
+    unless ($remain == 0) {
+      return 0;
+    }
     
     return 1;
   }
   
   static method tv_interval : int () {
     
+    {
+      my $tv_a = Time::HiRes->gettimeofday;
+      
+      Time::HiRes->sleep(0.5);
+      
+      my $tv_b = Time::HiRes->gettimeofday;
+      
+      my $interval = Time::HiRes->tv_interval($tv_a, $tv_b);
+      
+      unless ($interval > 0.5 && $interval < 0.6) {
+        return 0;
+      }
+    }
+    
+    {
+      my $tv_a = Time::HiRes->gettimeofday;
+      
+      Time::HiRes->sleep(0.5);
+      
+      my $interval = Time::HiRes->tv_interval($tv_a);
+      
+      unless ($interval > 0.5 && $interval < 0.6) {
+        return 0;
+      }
+    }
+    
     return 1;
   }
   
   static method time : int () {
+    
+    my $time = Time::HiRes->time;
+    
+    warn "[Test Output]time:return:" . Format->sprintf("%.5f", [(object)$time]);
+    
+    warn Sys->time;
+    
+    unless ($time > 0) {
+      return 0;
+    }
     
     return 1;
   }

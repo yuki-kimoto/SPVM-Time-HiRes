@@ -113,7 +113,7 @@ class Time::HiRes::Util {
       die "\$ts->tv_nsec must be greater than or equal to 0.";
     }
     
-    my $float_seconds = (double)$tv_sec + ($tv_nsec / 1_000_000_000);
+    my $float_seconds = $tv_sec + (double)$tv_nsec / 1_000_000_000;
     
     return $float_seconds;
   }
@@ -151,7 +151,7 @@ class Time::HiRes::Util {
       die "\$tv->tv_usec must be greater than or equal to 0.";
     }
     
-    my $float_seconds = (double)$tv_sec + ($tv_usec / 1_000_000);
+    my $float_seconds = $tv_sec + (double)$tv_usec / 1_000_000;
     
     return $float_seconds;
   }
@@ -173,7 +173,7 @@ class Time::HiRes::Util {
       die "\$nanoseconds must be greater than or equal to 0.";
     }
     
-    my $float_seconds = $nanoseconds / 1_000_000_000;
+    my $float_seconds = (double)$nanoseconds / 1_000_000_000;
     
     return $float_seconds;
   }
@@ -195,7 +195,7 @@ class Time::HiRes::Util {
       die "\$microseconds must be greater than or equal to 0.";
     }
     
-    my $float_seconds = $microseconds / 1_000_000;
+    my $float_seconds = (double)$microseconds / 1_000_000;
     
     return $float_seconds;
   }
@@ -226,7 +226,7 @@ class Time::HiRes::Util {
       die "\$tv_b->tv_usec must be greater than or equal to 0.";
     }
     
-    my $tv_interval = ($tv_b_sec - $tv_a_sec) + ($tv_b_usec - $tv_a_usec) / 1_000_000;
+    my $tv_interval = ($tv_b_sec - $tv_a_sec) + (double)($tv_b_usec - $tv_a_usec) / 1_000_000;
     
     return $tv_interval;
   }
@@ -257,7 +257,7 @@ class Time::HiRes::Util {
       die "\$ts_b->tv_nsec must be greater than or equal to 0.";
     }
     
-    my $ts_interspec = ($ts_b_sec - $ts_a_sec) + ($ts_b_nsec - $ts_a_nsec) / 1_000_000_000;
+    my $ts_interspec = ($ts_b_sec - $ts_a_sec) + (double)($ts_b_nsec - $ts_a_nsec) / 1_000_000_000;
     
     return $ts_interspec;
   }
