@@ -2,10 +2,10 @@
 Changes
 lib/SPVM/Time/HiRes.pm
 lib/SPVM/Time/HiRes.spvm
-lib/SPVM/Time/HiRes/FloatSecond.pm
-lib/SPVM/Time/HiRes/FloatSecond.spvm
 lib/SPVM/Time/HiRes/ItimervalFloat.pm
 lib/SPVM/Time/HiRes/ItimervalFloat.spvm
+lib/SPVM/Time/HiRes/Util.pm
+lib/SPVM/Time/HiRes/Util.spvm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files

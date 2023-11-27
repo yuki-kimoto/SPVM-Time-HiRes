@@ -1,4 +1,4 @@
-package SPVM::Time::HiRes::FloatSecond;
+package SPVM::Time::HiRes::Util;
 
 
 
@@ -6,15 +6,15 @@ package SPVM::Time::HiRes::FloatSecond;
 
 =head1 Name
 
-SPVM::Time::HiRes::FloatSecond - Short Description
+SPVM::Time::HiRes::Util - Short Description
 
 =head1 Description
 
-The Time::HiRes::FloatSecond class of L<SPVM> has methods to do someting.
+The Time::HiRes::Util class of L<SPVM> has methods to do someting.
 
 =head1 Usage
 
-  use Time::HiRes::FloatSecond;
+  use Time::HiRes::Util;
 
 =head1 Fields
 
