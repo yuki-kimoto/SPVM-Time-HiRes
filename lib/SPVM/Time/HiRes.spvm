@@ -10,6 +10,7 @@ class Time::HiRes {
   use Sys::Time::Timezone;
   use Sys::Signal;
   use Sys::Process;
+  use Fn;
   
   # Class Methods
   static method gettimeofday : Sys::Time::Timeval () {
@@ -81,7 +82,44 @@ class Time::HiRes {
     return $ret;
   }
   
-  # clock_nanosleep ( $which, $nanoseconds, $flags = 0)
+  private static method double_time_to_timespec : Sys::Time::Timespec ($double_time : double) {
+    
+    unless ($double_time <= Fn->INT_MAX) {
+      die "\$double_time must be less than or equal to Fn->INT_MAX.";
+    }
+    
+    my $sec = (int)$double_time;
+    
+    my $nsec = (int)(($double_time - $sec) * 1_000_000_000);
+    
+    my $ts = Sys::Time::Timespec->new;
+    
+    $ts->set_tv_sec($sec);
+    
+    $ts->set_tv_nsec($nsec);
+    
+    return $ts;
+  }
+  
+  private static method timespec_to_double_time : double ($ts : Sys::Time::Timespec) {
+    
+    my $double_time = (double)$ts->tv_sec + ($ts->tv_nsec / 1_000_000_000);
+    
+    return $double_time;
+  }
+  
+  static method clock_nanosleep : double ($clockid : int, $nanoseconds : double, $flags : int = 0) {
+    
+    my $nanoseconds_ts = &double_time_to_timespec($nanoseconds);
+    
+    my $remain_ts = Sys::Time::Timespec->new;
+    
+    Sys::Time->clock_nanosleep($clockid, $flags, $nanoseconds_ts, $remain_ts);
+    
+    my $remain_dt = &timespec_to_double_time($remain_ts);
+    
+    return $remain_dt;
+  }
   
   static method clock : long () {
     my $cpu_time = Sys::Time->clock;
