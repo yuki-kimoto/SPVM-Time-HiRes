@@ -2,7 +2,6 @@
 # MIT License
 
 class Time::HiRes::ItimervalFloat {
-
   # Fields
   has it_interval : rw double;
   

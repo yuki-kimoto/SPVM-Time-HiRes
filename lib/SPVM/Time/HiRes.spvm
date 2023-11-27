@@ -63,16 +63,26 @@ class Time::HiRes {
   static method setitimer :  ( $which, $floating_seconds [, $interval_floating_seconds ] ) {
     
   }
-  
-  static method getitimer : Sys::Time::Itimerval ($which : int) {
+
+=cut
+
+  static method getitimer : Time::HiRes::ItimervalFloat ($which : int) {
     
     my $itimer = Sys::Time::Itimerval->new;
     
     Sys::Time->getitimer($which, $itimer);
     
-    return $itimer;
+    my $itimer_it_interval_float = Time::HiRes::FloatSecond->timeval_to_float_seconds($itimer->it_interval);
+    
+    my $itimer_it_value_float = Time::HiRes::FloatSecond->timeval_to_float_seconds($itimer->it_value);
+    
+    my $itimer_float = Time::HiRes::ItimervalFloat->new($itimer_it_interval_float, $itimer_it_value_float);
+    
+    return $itimer_float;
   }
-  
+
+=pod
+
   # setitimer ( $which, $floating_seconds [, $interval_floating_seconds ] )
   
 =cut
