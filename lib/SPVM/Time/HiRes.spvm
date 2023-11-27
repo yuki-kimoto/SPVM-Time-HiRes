@@ -34,8 +34,17 @@ class Time::HiRes {
     return $slept_time;
   }
   
-  static method nanosleep : int ($rqtp : Sys::Time::Timespec, $rmtp : Sys::Time::Timespec) {
-    return Sys::Time->nanosleep($rqtp, $rmtp);
+  static method nanosleep : double ($nanoseconds : double) {
+    
+    my $nanoseconds_ts = Time::HiRes::FloatSecond->float_seconds_to_timespec($nanoseconds);
+    
+    my $remain_ts = Sys::Time::Timespec->new;
+    
+    Sys::Time->nanosleep($nanoseconds_ts, $remain_ts);
+    
+    my $remain = Time::HiRes::FloatSecond->timespec_to_float_seconds($remain_ts);
+    
+    return $remain;
   }
   
   static method ualarm : int ($usecs : int, $interval : int = 0) {

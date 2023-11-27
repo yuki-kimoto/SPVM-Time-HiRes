@@ -26,6 +26,10 @@ C<static method gettimeofday : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> ()
 
 C<static method usleep : int ($usec : int);>
 
+=head2 nanosleep
+
+C<static method nanosleep : double ($nanoseconds : double);>
+
 
 =head1 Repository
 
