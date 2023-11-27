@@ -5,6 +5,10 @@ class Time::HiRes::Util {
 
   static method nanoseconds_to_timespec : Sys::Time::Timespec ($nanoseconds : long) {
     
+    unless ($nanoseconds >= 0) {
+      die "\$nanoseconds must be greater than or equal to 0.";
+    }
+    
     my $sec = $nanoseconds / 1_000_000_000;
     
     my $nsec = $nanoseconds - $sec * 1_000_000_000;
@@ -20,12 +24,28 @@ class Time::HiRes::Util {
   
   static method timespec_to_nanoseconds : long ($ts : Sys::Time::Timespec) {
     
+    my $tv_sec = $ts->tv_sec;
+    
+    unless ($tv_sec >= 0) {
+      die "\$ts->tv_sec must be greater than or equal to 0.";
+    }
+    
+    my $tv_nsec = $ts->tv_nsec;
+    
+    unless ($tv_nsec >= 0) {
+      die "\$ts->tv_nsec must be greater than or equal to 0.";
+    }
+    
     my $nanoseconds = $ts->tv_sec * 1_000_000_000 + $ts->tv_nsec;
     
     return $nanoseconds;
   }
   
   static method microseconds_to_timeval : Sys::Time::Timeval ($microseconds : long) {
+    
+    unless ($microseconds >= 0) {
+      die "\$microseconds must be greater than or equal to 0.";
+    }
     
     my $sec = $microseconds / 1_000_000;
     
@@ -42,7 +62,19 @@ class Time::HiRes::Util {
   
   static method timeval_to_microseconds : double ($tv : Sys::Time::Timeval) {
     
-    my $microseconds = $tv->tv_sec * 1_000_000 + $tv->tv_usec;
+    my $tv_sec = $tv->tv_sec;
+    
+    unless ($tv_sec >= 0) {
+      die "\$tv->tv_sec must be greater than or equal to 0.";
+    }
+    
+    my $tv_usec = $tv ->tv_usec;
+    
+    unless ($tv_usec >= 0) {
+      die "\$tv->tv_usec must be greater than or equal to 0.";
+    }
+    
+    my $microseconds = $tv_sec * 1_000_000 + $tv_usec;
     
     return $microseconds;
   }

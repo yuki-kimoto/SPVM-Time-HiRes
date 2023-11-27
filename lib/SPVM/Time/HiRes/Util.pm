@@ -24,11 +24,23 @@ C<static method nanoseconds_to_timespec : L<Sys::Time::Timespec|SPVM::Sys::Time:
 
 Converts nanoseconds $nanoseconds to a L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> object, and returns it.
 
+Exceptions:
+
+$nanoseconds must be greater than or equal to 0. Otherwise an exception is thrown.
+
 =head2 timespec_to_nanoseconds
 
 C<static method timespec_to_nanoseconds : long ($ts : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec>);>
 
 Converts the L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> object $ts to nanoseconds, and returns it.
+
+This method could cause overflow.
+
+Exceptions:
+
+$ts->tv_sec must be greater than or equal to 0. Otherwise an exception is thrown.
+
+$ts->tv_nsec must be greater than or equal to 0. Otherwise an exception is thrown.
 
 =head2 microseconds_to_timeval
 
@@ -36,11 +48,23 @@ C<static method microseconds_to_timeval : L<Sys::Time::Timeval|SPVM::Sys::Time::
 
 Converts microseconds $microseconds to a L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> object, and returns it.
 
+Exceptions:
+
+$microseconds must be greater than or equal to 0. Otherwise an exception is thrown.
+
 =head2 timeval_to_microseconds
 
 C<static method timeval_to_microseconds : double ($tv : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval>);>
 
 Converts the L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> object $tv to microseconds, and returns it.
+
+This method could cause overflow.
+
+Exceptions:
+
+$tv->tv_sec must be greater than or equal to 0. Otherwise an exception is thrown.
+
+$tv->tv_usec must be greater than or equal to 0. Otherwise an exception is thrown.
 
 =head2 float_seconds_to_timespec
 
