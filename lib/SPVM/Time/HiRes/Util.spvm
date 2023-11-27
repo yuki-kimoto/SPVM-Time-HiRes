@@ -40,9 +40,9 @@ class Time::HiRes::Util {
     return $ts;
   }
   
-  static method timeval_to_microseconds : double ($ts : Sys::Time::Timeval) {
+  static method timeval_to_microseconds : double ($tv : Sys::Time::Timeval) {
     
-    my $microseconds = $ts->tv_sec * 1_000_000 + $ts->tv_usec;
+    my $microseconds = $tv->tv_sec * 1_000_000 + $tv->tv_usec;
     
     return $microseconds;
   }
@@ -107,20 +107,6 @@ class Time::HiRes::Util {
     return $float_seconds;
   }
   
-  static method timeval_interval : double ($a : Sys::Time::Timeval, $b : Sys::Time::Timeval) {
-    
-    my $tv_interval = ($b->tv_sec - $a->tv_sec) + ($b->tv_usec - $a->tv_usec) / 1_000_000;
-    
-    return $tv_interval;
-  }
-  
-  static method timespec_interval : double ($a : Sys::Time::Timespec, $b : Sys::Time::Timespec) {
-    
-    my $ts_interspec = ($b->tv_sec - $a->tv_sec) + ($b->tv_nsec - $a->tv_nsec) / 1_000_000_000;
-    
-    return $ts_interspec;
-  }
-  
   static method float_seconds_to_nanoseconds : long ($float_seconds : double) {
     
     unless ($float_seconds <= Fn->INT_MAX) {
@@ -133,7 +119,6 @@ class Time::HiRes::Util {
   }
   
   static method nanoseconds_to_float_seconds : double ($nanoseconds : long) {
-    
     my $float_seconds = $nanoseconds / 1_000_000_000;
     
     return $float_seconds;
@@ -155,6 +140,20 @@ class Time::HiRes::Util {
     my $float_seconds = $microseconds / 1_000_000;
     
     return $float_seconds;
+  }
+  
+  static method timeval_interval : double ($tv_a : Sys::Time::Timeval, $tv_b : Sys::Time::Timeval) {
+    
+    my $tv_interval = ($tv_b->tv_sec - $tv_a->tv_sec) + ($tv_b->tv_usec - $tv_a->tv_usec) / 1_000_000;
+    
+    return $tv_interval;
+  }
+  
+  static method timespec_interval : double ($ts_a : Sys::Time::Timespec, $ts_b : Sys::Time::Timespec) {
+    
+    my $ts_interspec = ($ts_b->tv_sec - $ts_a->tv_sec) + ($ts_b->tv_nsec - $ts_a->tv_nsec) / 1_000_000_000;
+    
+    return $ts_interspec;
   }
   
 }

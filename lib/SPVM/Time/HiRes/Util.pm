@@ -10,32 +10,113 @@ SPVM::Time::HiRes::Util - Short Description
 
 =head1 Description
 
-The Time::HiRes::Util class of L<SPVM> has methods to do someting.
+The Time::HiRes::Util class of L<SPVM> has utility methods to manipulate high resolution time.
 
 =head1 Usage
 
   use Time::HiRes::Util;
 
-=head1 Fields
-
-
-
 =head1 Class Methods
 
+=head2 nanoseconds_to_timespec
 
+C<static method nanoseconds_to_timespec : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> ($nanoseconds : long);>
 
-=head1 Instance Methods
+Converts nanoseconds $nanoseconds to a L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> object, and returns it.
 
+=head2 timespec_to_nanoseconds
 
+C<static method timespec_to_nanoseconds : long ($ts : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec>);>
 
+Converts the L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> object $ts to nanoseconds, and returns it.
 
-=head1 Repository
+=head2 microseconds_to_timeval
 
+C<static method microseconds_to_timeval : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> ($microseconds : long);>
 
+Converts microseconds $microseconds to a L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> object, and returns it.
 
-=head1 Author
+=head2 timeval_to_microseconds
 
-Yuki Kimoto C<kimoto.yuki@gmail.com>
+C<static method timeval_to_microseconds : double ($tv : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval>);>
+
+Converts the L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> object $tv to microseconds, and returns it.
+
+=head2 float_seconds_to_timespec
+
+C<static method float_seconds_to_timespec : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> ($float_seconds : double);>
+
+Converts floating seconds $float_seconds to a L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> object, and returns it.
+
+Exceptions:
+
+$float_seconds must be less than or equal to Fn->INT_MAX. Otherwise an exception is thrown.
+
+=head2 timespec_to_float_seconds
+
+C<static method timespec_to_float_seconds : double ($ts : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec>);>
+
+Converts the L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> object $ts to floating seconds, and returns it.
+
+Exceptions:
+
+$ts->tv_sec must be less than or equal to Fn->INT_MAX. Otherwise an exception is thrown.
+
+=head2 float_seconds_to_timeval
+
+C<static method float_seconds_to_timeval : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> ($float_seconds : double);>
+
+Converts floating seconds $float_seconds to a L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> object, and returns it.
+
+Exceptions:
+
+$float_seconds must be less than or equal to Fn->INT_MAX. Otherwise an exception is thrown.
+
+=head2 timeval_to_float_seconds
+
+C<static method timeval_to_float_seconds : double ($tv : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval>);>
+
+Converts the L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> object $tv to floating seconds, and returns it.
+
+=head2 float_seconds_to_nanoseconds
+
+C<static method float_seconds_to_nanoseconds : long ($float_seconds : double);>
+
+Converts floating seconds $float_seconds to nanoseconds, and returns it.
+
+Exceptions:
+
+$float_seconds must be less than or equal to Fn->INT_MAX. Otherwise an exception is thrown.
+
+=head2 nanoseconds_to_float_seconds
+
+C<static method nanoseconds_to_float_seconds : double ($nanoseconds : long);>
+
+Converts nanoseconds $nanoseconds to floating seconds, and returns it.
+
+=head2 float_seconds_to_microseconds
+
+C<static method float_seconds_to_microseconds : long ($float_seconds : double);>
+
+Converts floating seconds $float_seconds to microseconds, and returns it.
+
+=head2 microseconds_to_float_seconds
+
+C<static method microseconds_to_float_seconds : double ($microseconds : long);>
+
+Converts microseconds $microseconds to floating seconds, and returns it.
+
+=head2 timeval_interval
+
+C<static method timeval_interval : double ($tv_a : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval>, $tv_b : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval>);>
+
+Calculates $tv_b - $tv_a and returns it as floating seconds.
+
+=head2 timespec_interval
+
+C<static method timespec_interval : double ($ts_a : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec>, $ts_b : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec>);>
+
+Calculates $ts_b - $ts_a and returns it as floating seconds.
 
 =head1 Copyright & License
 

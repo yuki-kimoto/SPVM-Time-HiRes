@@ -74,6 +74,16 @@ C<static method clock_nanosleep : long ($clockid : int, $nanoseconds : long, $fl
 
 C<static method clock : long ();>
 
+=head1 See Also
+
+=over 2
+
+=item * L<Time::HiRes::Util|SPVM::Time::HiRes::Util>
+
+=item * L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::ItimervalFloat>
+
+=back
+
 =head1 Repository
 
 L<SPVM::Time::HiRes - Github|https://github.com/yuki-kimoto/SPVM-Time-HiRes>
