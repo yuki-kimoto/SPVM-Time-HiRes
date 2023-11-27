@@ -107,4 +107,18 @@ class Time::HiRes::Util {
     return $float_seconds;
   }
   
+  static method timeval_interval : double ($a : Sys::Time::Timeval, $b : Sys::Time::Timeval) {
+    
+    my $tv_interval = ($b->tv_sec - $a->tv_sec) + ($b->tv_usec - $a->tv_usec) / 1_000_000;
+    
+    return $tv_interval;
+  }
+  
+  static method timespec_interval : double ($a : Sys::Time::Timespec, $b : Sys::Time::Timespec) {
+    
+    my $ts_interspec = ($b->tv_sec - $a->tv_sec) + ($b->tv_nsec - $a->tv_nsec) / 1_000_000_000;
+    
+    return $ts_interspec;
+  }
+  
 }

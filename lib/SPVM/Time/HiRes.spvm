@@ -60,7 +60,7 @@ class Time::HiRes {
       $b = &gettimeofday;
     }
     
-    my $tv_interval = ($b->tv_sec - $a->tv_sec) + ($b->tv_usec - $a->tv_usec) / 1_000_000;
+    my $tv_interval = Time::HiRes::Util->timeval_interval($a, $b);
     
     return $tv_interval;
   }
