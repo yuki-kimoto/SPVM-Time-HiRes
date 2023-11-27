@@ -1,0 +1,73 @@
+class TestCase::Time::HiRes::Util {
+  use Time::HiRes::Util;
+  
+  static method nanoseconds_to_timespec : int () {
+    
+    return 1;
+  }
+  
+  static method timespec_to_nanoseconds : int () {
+    
+    return 1;
+  }
+  
+  static method microseconds_to_timeval : int () {
+    
+    return 1;
+  }
+  
+  static method timeval_to_microseconds : int () {
+    
+    return 1;
+  }
+  
+  static method float_seconds_to_timespec : int () {
+    
+    return 1;
+  }
+  
+  static method timespec_to_float_seconds : int () {
+    
+    return 1;
+  }
+  
+  static method float_seconds_to_timeval : int () {
+    
+    return 1;
+  }
+  
+  static method timeval_to_float_seconds : int () {
+    
+    return 1;
+  }
+  
+  static method float_seconds_to_nanoseconds : int () {
+    
+    return 1;
+  }
+  
+  static method nanoseconds_to_float_seconds : int () {
+    
+    return 1;
+  }
+  static method float_seconds_to_microseconds : int () {
+    
+    return 1;
+  }
+  
+  static method microseconds_to_float_seconds : int () {
+    
+    return 1;
+  }
+  
+  static method timeval_interval : int () {
+    
+    return 1;
+  }
+  
+  static method timespec_interval : int () {
+    
+    return 1;
+  }
+  
+}

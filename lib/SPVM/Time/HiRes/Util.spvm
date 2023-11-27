@@ -2,7 +2,9 @@
 # MIT License
 
 class Time::HiRes::Util {
-
+  use Sys::Time::Timespec;
+  use Sys::Time::Timeval;
+  
   static method nanoseconds_to_timespec : Sys::Time::Timespec ($nanoseconds : long) {
     
     unless ($nanoseconds >= 0) {

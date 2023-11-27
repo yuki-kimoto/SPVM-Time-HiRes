@@ -18,4 +18,6 @@ MANIFEST			This list of files
 MANIFEST.SKIP
 README.md
 t/lib/SPVM/TestCase/Time/HiRes.spvm
+t/lib/SPVM/TestCase/Time/HiRes/Util.spvm
+t/Time-HiRes-Util.t
 t/Time-HiRes.t
