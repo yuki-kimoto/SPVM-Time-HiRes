@@ -5,12 +5,17 @@ class Time::HiRes {
   
   version "0.001";
   
+  use Fn;
   use Sys::Time;
-  use Sys::Time::Timeval;
   use Sys::Time::Timezone;
   use Sys::Signal;
   use Sys::Process;
-  use Fn;
+  use Sys::Time::Timeval;
+  use Sys::Time::Timespec;
+  use Sys::Time::Itimerval;
+  
+  use Time::HiRes::ItimervalFloat;
+  use Time::HiRes::FloatSecond;
   
   # Class Methods
   static method gettimeofday : Sys::Time::Timeval () {
@@ -51,9 +56,27 @@ class Time::HiRes {
     return $tv_interval;
   }
   
-  # setitimer ( $which, $floating_seconds [, $interval_floating_seconds ] )
-  # getitimer ( $which )
+  # static method setitimer : int ($which : int, $new_value : Sys::Time::Itimerval, $old_value : Sys::Time::Itimerval);
+
+=pod
+
+  static method setitimer :  ( $which, $floating_seconds [, $interval_floating_seconds ] ) {
+    
+  }
   
+  static method getitimer : Sys::Time::Itimerval ($which : int) {
+    
+    my $itimer = Sys::Time::Itimerval->new;
+    
+    Sys::Time->getitimer($which, $itimer);
+    
+    return $itimer;
+  }
+  
+  # setitimer ( $which, $floating_seconds [, $interval_floating_seconds ] )
+  
+=cut
+
   static method clock_gettime : double ($clk_id : int) {
     
     my $ts = Sys::Time::Timespec->new;
@@ -67,7 +90,7 @@ class Time::HiRes {
     
     return $ret;
   }
-
+  
   static method clock_getres : double ($clk_id : int) {
     
     my $ts = Sys::Time::Timespec->new;
@@ -82,7 +105,7 @@ class Time::HiRes {
     return $ret;
   }
   
-  private static method double_time_to_timespec : Sys::Time::Timespec ($double_time : double) {
+  private static method float_seconds_to_timespec : Sys::Time::Timespec ($double_time : double) {
     
     unless ($double_time <= Fn->INT_MAX) {
       die "\$double_time must be less than or equal to Fn->INT_MAX.";
@@ -101,7 +124,7 @@ class Time::HiRes {
     return $ts;
   }
   
-  private static method timespec_to_double_time : double ($ts : Sys::Time::Timespec) {
+  private static method timespec_to_float_seconds : double ($ts : Sys::Time::Timespec) {
     
     my $double_time = (double)$ts->tv_sec + ($ts->tv_nsec / 1_000_000_000);
     
@@ -110,13 +133,13 @@ class Time::HiRes {
   
   static method clock_nanosleep : double ($clockid : int, $nanoseconds : double, $flags : int = 0) {
     
-    my $nanoseconds_ts = &double_time_to_timespec($nanoseconds);
+    my $nanoseconds_ts = &float_seconds_to_timespec($nanoseconds);
     
     my $remain_ts = Sys::Time::Timespec->new;
     
     Sys::Time->clock_nanosleep($clockid, $flags, $nanoseconds_ts, $remain_ts);
     
-    my $remain_dt = &timespec_to_double_time($remain_ts);
+    my $remain_dt = &timespec_to_float_seconds($remain_ts);
     
     return $remain_dt;
   }

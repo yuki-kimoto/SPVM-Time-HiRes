@@ -1,0 +1,66 @@
+# Copyright (c) 2023 Yuki Kimoto
+# MIT License
+
+class Time::HiRes::FloatSecond {
+
+  static method float_seconds_to_timespec : Sys::Time::Timespec ($float_seconds : double) {
+    
+    unless ($float_seconds <= Fn->INT_MAX) {
+      die "\$float_seconds must be less than or equal to Fn->INT_MAX.";
+    }
+    
+    my $sec = (int)$float_seconds;
+    
+    my $nsec = (int)(($float_seconds - $sec) * 1_000_000_000);
+    
+    my $ts = Sys::Time::Timespec->new;
+    
+    $ts->set_tv_sec($sec);
+    
+    $ts->set_tv_nsec($nsec);
+    
+    return $ts;
+  }
+  
+  static method timespec_to_float_seconds : double ($ts : Sys::Time::Timespec) {
+    
+    unless ($ts->tv_sec <= Fn->INT_MAX) {
+      die "\$ts->tv_sec must be less than or equal to Fn->INT_MAX.";
+    }
+    
+    my $float_seconds = (double)$ts->tv_sec + ($ts->tv_nsec / 1_000_000_000);
+    
+    return $float_seconds;
+  }
+  
+  static method float_seconds_to_timeval : Sys::Time::Timeval ($float_seconds : double) {
+    
+    unless ($float_seconds <= Fn->INT_MAX) {
+      die "\$float_seconds must be less than or equal to Fn->INT_MAX.";
+    }
+    
+    my $sec = (int)$float_seconds;
+    
+    my $usec = (int)(($float_seconds - $sec) * 1_000_000);
+    
+    my $tv = Sys::Time::Timeval->new;
+    
+    $tv->set_tv_sec($sec);
+    
+    $tv->set_tv_usec($usec);
+    
+    return $tv;
+  }
+  
+  static method timeval_to_float_seconds : double ($tv : Sys::Time::Timeval) {
+    
+    unless ($tv->tv_sec <= Fn->INT_MAX) {
+      die "\$tv->tv_sec must be less than or equal to Fn->INT_MAX.";
+    }
+    
+    my $float_seconds = (double)$tv->tv_sec + ($tv->tv_usec / 1_000_000);
+    
+    return $float_seconds;
+  }
+  
+}
