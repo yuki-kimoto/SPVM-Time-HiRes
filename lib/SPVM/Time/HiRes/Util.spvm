@@ -81,13 +81,13 @@ class Time::HiRes::Util {
   
   static method float_seconds_to_timespec : Sys::Time::Timespec ($float_seconds : double) {
     
-    unless ($float_seconds <= Fn->INT_MAX) {
-      die "\$float_seconds must be less than or equal to Fn->INT_MAX.";
+    unless ($float_seconds >= 0) {
+      die "\$float_seconds must be greater than or equal to 0.";
     }
     
-    my $sec = (int)$float_seconds;
+    my $sec = (long)$float_seconds;
     
-    my $nsec = (int)(($float_seconds - $sec) * 1_000_000_000);
+    my $nsec = (long)(($float_seconds - $sec) * 1_000_000_000);
     
     my $ts = Sys::Time::Timespec->new;
     
@@ -99,25 +99,32 @@ class Time::HiRes::Util {
   }
   
   static method timespec_to_float_seconds : double ($ts : Sys::Time::Timespec) {
+    my $tv_sec = $ts->tv_sec;
     
-    unless ($ts->tv_sec <= Fn->INT_MAX) {
-      die "\$ts->tv_sec must be less than or equal to Fn->INT_MAX.";
+    unless ($tv_sec >= 0) {
+      die "\$ts->tv_sec must be greater than or equal to 0.";
     }
     
-    my $float_seconds = (double)$ts->tv_sec + ($ts->tv_nsec / 1_000_000_000);
+    my $tv_nsec = $ts->tv_nsec;
+    
+    unless ($tv_nsec >= 0) {
+      die "\$ts->tv_nsec must be greater than or equal to 0.";
+    }
+    
+    my $float_seconds = (double)$tv_sec + ($tv_nsec / 1_000_000_000);
     
     return $float_seconds;
   }
   
   static method float_seconds_to_timeval : Sys::Time::Timeval ($float_seconds : double) {
     
-    unless ($float_seconds <= Fn->INT_MAX) {
-      die "\$float_seconds must be less than or equal to Fn->INT_MAX.";
+    unless ($float_seconds >= 0) {
+      die "\$float_seconds must be greater than or equal to 0.";
     }
     
-    my $sec = (int)$float_seconds;
+    my $sec = (long)$float_seconds;
     
-    my $usec = (int)(($float_seconds - $sec) * 1_000_000);
+    my $usec = (long)(($float_seconds - $sec) * 1_000_000);
     
     my $tv = Sys::Time::Timeval->new;
     
@@ -130,19 +137,27 @@ class Time::HiRes::Util {
   
   static method timeval_to_float_seconds : double ($tv : Sys::Time::Timeval) {
     
-    unless ($tv->tv_sec <= Fn->INT_MAX) {
-      die "\$tv->tv_sec must be less than or equal to Fn->INT_MAX.";
+    my $tv_sec = $tv->tv_sec;
+    
+    unless ($tv_sec >= 0) {
+      die "\$tv->tv_sec must be greater than or equal to 0.";
     }
     
-    my $float_seconds = (double)$tv->tv_sec + ($tv->tv_usec / 1_000_000);
+    my $tv_usec = $tv ->tv_usec;
+    
+    unless ($tv_usec >= 0) {
+      die "\$tv->tv_usec must be greater than or equal to 0.";
+    }
+    
+    my $float_seconds = (double)$tv_sec + ($tv_usec / 1_000_000);
     
     return $float_seconds;
   }
   
   static method float_seconds_to_nanoseconds : long ($float_seconds : double) {
     
-    unless ($float_seconds <= Fn->INT_MAX) {
-      die "\$float_seconds must be less than or equal to Fn->INT_MAX.";
+    unless ($float_seconds >= 0) {
+      die "\$float_seconds must be greater than or equal to 0.";
     }
     
     my $nanoseconds = (long)($float_seconds * 1_000_000_000);
@@ -151,6 +166,11 @@ class Time::HiRes::Util {
   }
   
   static method nanoseconds_to_float_seconds : double ($nanoseconds : long) {
+    
+    unless ($nanoseconds >= 0) {
+      die "\$nanoseconds must be greater than or equal to 0.";
+    }
+    
     my $float_seconds = $nanoseconds / 1_000_000_000;
     
     return $float_seconds;
@@ -158,8 +178,8 @@ class Time::HiRes::Util {
   
   static method float_seconds_to_microseconds : long ($float_seconds : double) {
     
-    unless ($float_seconds <= Fn->INT_MAX) {
-      die "\$float_seconds must be less than or equal to Fn->INT_MAX.";
+    unless ($float_seconds >= 0) {
+      die "\$float_seconds must be greater than or equal to 0.";
     }
     
     my $microseconds = (long)($float_seconds * 1_000_000);
@@ -169,6 +189,10 @@ class Time::HiRes::Util {
   
   static method microseconds_to_float_seconds : double ($microseconds : long) {
     
+    unless ($microseconds >= 0) {
+      die "\$microseconds must be greater than or equal to 0.";
+    }
+    
     my $float_seconds = $microseconds / 1_000_000;
     
     return $float_seconds;
@@ -176,14 +200,62 @@ class Time::HiRes::Util {
   
   static method timeval_interval : double ($tv_a : Sys::Time::Timeval, $tv_b : Sys::Time::Timeval) {
     
-    my $tv_interval = ($tv_b->tv_sec - $tv_a->tv_sec) + ($tv_b->tv_usec - $tv_a->tv_usec) / 1_000_000;
+    my $tv_a_sec = $tv_a->tv_sec;
+    
+    unless ($tv_a_sec >= 0) {
+      die "\$tv_a->tv_sec must be greater than or equal to 0.";
+    }
+    
+    my $tv_a_usec = $tv_a->tv_usec;
+    
+    unless ($tv_a_usec >= 0) {
+      die "\$tv_a->tv_usec must be greater than or equal to 0.";
+    }
+    
+    my $tv_b_sec = $tv_b->tv_sec;
+    
+    unless ($tv_b_sec >= 0) {
+      die "\$tv_b->tv_sec must be greater than or equal to 0.";
+    }
+    
+    my $tv_b_usec = $tv_b->tv_usec;
+    
+    unless ($tv_b_usec >= 0) {
+      die "\$tv_b->tv_usec must be greater than or equal to 0.";
+    }
+    
+    my $tv_interval = ($tv_b_sec - $tv_a_sec) + ($tv_b_usec - $tv_a_usec) / 1_000_000;
     
     return $tv_interval;
   }
   
   static method timespec_interval : double ($ts_a : Sys::Time::Timespec, $ts_b : Sys::Time::Timespec) {
     
-    my $ts_interspec = ($ts_b->tv_sec - $ts_a->tv_sec) + ($ts_b->tv_nsec - $ts_a->tv_nsec) / 1_000_000_000;
+    my $ts_a_sec = $ts_a->tv_sec;
+    
+    unless ($ts_a_sec >= 0) {
+      die "\$ts_a->tv_sec must be greater than or equal to 0.";
+    }
+    
+    my $ts_a_nsec = $ts_a->tv_nsec;
+    
+    unless ($ts_a_nsec >= 0) {
+      die "\$ts_a->tv_nsec must be greater than or equal to 0.";
+    }
+    
+    my $ts_b_sec = $ts_b->tv_sec;
+    
+    unless ($ts_b_sec >= 0) {
+      die "\$ts_b->tv_sec must be greater than or equal to 0.";
+    }
+    
+    my $ts_b_nsec = $ts_b->tv_nsec;
+    
+    unless ($ts_b_nsec >= 0) {
+      die "\$ts_b->tv_nsec must be greater than or equal to 0.";
+    }
+    
+    my $ts_interspec = ($ts_b_sec - $ts_a_sec) + ($ts_b_nsec - $ts_a_nsec) / 1_000_000_000;
     
     return $ts_interspec;
   }
