@@ -1,7 +1,69 @@
 class TestCase::Time::HiRes {
   use Time::HiRes;
-  static method test : int () {
+  
+  static method gettimeofday : int () {
     
     return 1;
   }
+  
+  static method usleep : int () {
+    
+    return 1;
+  }
+  
+  static method nanosleep : int () {
+    
+    return 1;
+  }
+  
+  static method tv_interval : int () {
+    
+    return 1;
+  }
+  
+  static method time : int () {
+    
+    return 1;
+  }
+  
+  static method sleep : int () {
+    
+    return 1;
+  }
+  
+  static method alarm : int () {
+    
+    return 1;
+  }
+  
+  static method setitimer : int () {
+    
+    return 1;
+  }
+  
+  static method getitimer : int () {
+    
+    return 1;
+  }
+  
+  static method clock_gettime : int () {
+    
+    return 1;
+  }
+  
+  static method clock_getres : int () {
+    
+    return 1;
+  }
+  
+  static method clock_nanosleep : int () {
+    
+    return 1;
+  }
+  
+  static method clock : int () {
+    
+    return 1;
+  }
+  
 }
