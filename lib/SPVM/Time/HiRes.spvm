@@ -27,7 +27,7 @@ class Time::HiRes {
     return $tv;
   }
   
-  static method usleep : int ($usec : long) {
+  static method usleep : int ($usec : int) {
     
     my $slept_time = Sys::Process->usleep($usec);
     

@@ -16,16 +16,15 @@ C<SPVM::Time::HiRes> is the C<Time::HiRes> class in L<SPVM> language.
 
   use Time::HiRes;
 
-=head1 Fields
-
-
-
 =head1 Class Methods
 
+=head2 gettimeofday
 
+C<static method gettimeofday : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> ();>
 
-=head1 Instance Methods
+=head2 usleep
 
+C<static method usleep : int ($usec : int);>
 
 
 =head1 Repository
