@@ -28,7 +28,7 @@ C<static method usleep : int ($usec : int);>
 
 =head2 nanosleep
 
-C<static method nanosleep : double ($nanoseconds : double);>
+C<static method nanosleep : long ($nanoseconds : long);>
 
 
 =head1 Repository

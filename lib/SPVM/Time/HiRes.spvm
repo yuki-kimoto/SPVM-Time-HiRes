@@ -34,15 +34,15 @@ class Time::HiRes {
     return $slept_time;
   }
   
-  static method nanosleep : double ($nanoseconds : double) {
+  static method nanosleep : long ($nanoseconds : long) {
     
-    my $nanoseconds_ts = Time::HiRes::FloatSecond->float_seconds_to_timespec($nanoseconds);
+    my $nanoseconds_ts = Time::HiRes::FloatSecond->nanoseconds_to_timespec($nanoseconds);
     
     my $remain_ts = Sys::Time::Timespec->new;
     
     Sys::Time->nanosleep($nanoseconds_ts, $remain_ts);
     
-    my $remain = Time::HiRes::FloatSecond->timespec_to_float_seconds($remain_ts);
+    my $remain = Time::HiRes::FloatSecond->timespec_to_nanoseconds($remain_ts);
     
     return $remain;
   }

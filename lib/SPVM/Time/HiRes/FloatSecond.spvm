@@ -3,6 +3,50 @@
 
 class Time::HiRes::FloatSecond {
 
+  static method nanoseconds_to_timespec : Sys::Time::Timespec ($nanoseconds : long) {
+    
+    my $sec = $nanoseconds / 1_000_000_000;
+    
+    my $nsec = $nanoseconds - $sec * 1_000_000_000;
+    
+    my $ts = Sys::Time::Timespec->new;
+    
+    $ts->set_tv_sec($sec);
+    
+    $ts->set_tv_nsec($nsec);
+    
+    return $ts;
+  }
+  
+  static method timespec_to_nanoseconds : long ($ts : Sys::Time::Timespec) {
+    
+    my $nanoseconds = $ts->tv_sec * 1_000_000_000 + $ts->tv_nsec;
+    
+    return $nanoseconds;
+  }
+  
+  static method microseconds_to_timeval : Sys::Time::Timeval ($microseconds : long) {
+    
+    my $sec = $microseconds / 1_000_000;
+    
+    my $usec = $microseconds - $sec * 1_000_000;
+    
+    my $ts = Sys::Time::Timeval->new;
+    
+    $ts->set_tv_sec($sec);
+    
+    $ts->set_tv_usec($usec);
+    
+    return $ts;
+  }
+  
+  static method timeval_to_microseconds : double ($ts : Sys::Time::Timeval) {
+    
+    my $microseconds = $ts->tv_sec * 1_000_000 + $ts->tv_usec;
+    
+    return $microseconds;
+  }
+  
   static method float_seconds_to_timespec : Sys::Time::Timespec ($float_seconds : double) {
     
     unless ($float_seconds <= Fn->INT_MAX) {
