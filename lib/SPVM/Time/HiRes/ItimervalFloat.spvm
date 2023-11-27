@@ -8,12 +8,8 @@ class Time::HiRes::ItimervalFloat {
   has it_value : rw double;
   
   # Class Methods
-  static method new : Time::HiRes::ItimervalFloat($it_interval : double, $it_value : double) {
+  static method new : Time::HiRes::ItimervalFloat () {
     my $self = new Time::HiRes::ItimervalFloat;
-    
-    $self->{it_interval} = $it_interval;
-    
-    $self->{it_value} = $it_value;
     
     return $self;
   }

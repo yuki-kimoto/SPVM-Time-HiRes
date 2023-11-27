@@ -56,16 +56,39 @@ class Time::HiRes {
     return $tv_interval;
   }
   
-  # static method setitimer : int ($which : int, $new_value : Sys::Time::Itimerval, $old_value : Sys::Time::Itimerval);
-
-=pod
-
-  static method setitimer :  ( $which, $floating_seconds [, $interval_floating_seconds ] ) {
+  static method setitimer : Time::HiRes::ItimervalFloat ($which : int, $new_itimer_float : Time::HiRes::ItimervalFloat) {
     
+    my $itimer = Sys::Time::Itimerval->new;
+    
+    Sys::Time->getitimer($which, $itimer);
+    
+    my $new_itimer = Sys::Time::Itimerval->new;
+    
+    my $new_iinter_it_interval = Time::HiRes::FloatSecond->float_seconds_to_timeval($new_itimer_float->it_interval);
+    
+    $new_itimer->set_it_interval($new_iinter_it_interval);
+    
+    my $new_iinter_it_value = Time::HiRes::FloatSecond->float_seconds_to_timeval($new_itimer_float->it_value);
+    
+    $new_itimer->set_it_value($new_iinter_it_value);
+    
+    my $old_itimer = Sys::Time::Itimerval->new;
+    
+    Sys::Time->setitimer($which, $new_itimer, $old_itimer);
+    
+    my $old_itimer_it_interval_float = Time::HiRes::FloatSecond->timeval_to_float_seconds($old_itimer->it_interval);
+    
+    my $old_itimer_it_value_float = Time::HiRes::FloatSecond->timeval_to_float_seconds($old_itimer->it_value);
+    
+    my $old_itimer_float = Time::HiRes::ItimervalFloat->new;
+    
+    $old_itimer_float->set_it_interval($old_itimer_it_interval_float);
+    
+    $old_itimer_float->set_it_value($old_itimer_it_value_float);
+    
+    return $old_itimer_float;
   }
-
-=cut
-
+  
   static method getitimer : Time::HiRes::ItimervalFloat ($which : int) {
     
     my $itimer = Sys::Time::Itimerval->new;
@@ -76,17 +99,15 @@ class Time::HiRes {
     
     my $itimer_it_value_float = Time::HiRes::FloatSecond->timeval_to_float_seconds($itimer->it_value);
     
-    my $itimer_float = Time::HiRes::ItimervalFloat->new($itimer_it_interval_float, $itimer_it_value_float);
+    my $itimer_float = Time::HiRes::ItimervalFloat->new;
+    
+    $itimer_float->set_it_interval($itimer_it_interval_float);
+    
+    $itimer_float->set_it_value($itimer_it_value_float);
     
     return $itimer_float;
   }
-
-=pod
-
-  # setitimer ( $which, $floating_seconds [, $interval_floating_seconds ] )
   
-=cut
-
   static method clock_gettime : double ($clk_id : int) {
     
     my $ts = Sys::Time::Timespec->new;
