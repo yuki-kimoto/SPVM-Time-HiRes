@@ -65,6 +65,34 @@ class Time::HiRes {
     return $tv_interval;
   }
   
+  static method time : double () {
+    die "This method is not implemented because it's clear that the lack of precision will cause future bugs.";
+  }
+  
+  static method sleep : double ($float_seconds : double) {
+    
+    my $microseconds = (int)($float_seconds * 1_000_000);
+    
+    my $slept_time = &usleep($microseconds);
+    
+    my $slept_time_float_seconds = (double)$slept_time / 1_000_000;
+    
+    return $slept_time_float_seconds;
+  }
+  
+  static method alarm : double ($float_seconds : double, $interval_float_seconds : double = 0) {
+    
+    my $usecs = (int)($float_seconds * 1_000_000);
+    
+    my $interval = (int)($interval_float_seconds * 1_000_000);
+    
+    my $remain_time = &ualarm($usecs, $interval);
+    
+    my $remain_time_float_seconds = (double)$remain_time / 1_000_000;
+    
+    return $remain_time_float_seconds;
+  }
+  
   static method setitimer : Time::HiRes::ItimervalFloat ($which : int, $new_itimer_float : Time::HiRes::ItimervalFloat) {
     
     my $itimer = Sys::Time::Itimerval->new;
@@ -125,7 +153,7 @@ class Time::HiRes {
     
     my $ret = -1.0;
     if ($status == 0) {
-      $ret = $ts->tv_sec + ($ts->tv_nsec / 1_000_000_000.0);
+      $ret = Time::HiRes::Util->timespec_to_float_seconds($ts);
     }
     
     return $ret;
@@ -139,23 +167,23 @@ class Time::HiRes {
     
     my $ret = -1.0;
     if ($status == 0) {
-      $ret = $ts->tv_sec + ($ts->tv_nsec / 1_000_000_000.0);
+      $ret = Time::HiRes::Util->timespec_to_float_seconds($ts);
     }
     
     return $ret;
   }
   
-  static method clock_nanosleep : double ($clockid : int, $nanoseconds : double, $flags : int = 0) {
+  static method clock_nanosleep : long ($clockid : int, $nanoseconds : long, $flags : int = 0) {
     
-    my $nanoseconds_ts = Time::HiRes::Util->float_seconds_to_timespec($nanoseconds);
+    my $ts = Time::HiRes::Util->nanoseconds_to_timespec($nanoseconds);
     
     my $remain_ts = Sys::Time::Timespec->new;
     
-    Sys::Time->clock_nanosleep($clockid, $flags, $nanoseconds_ts, $remain_ts);
+    Sys::Time->clock_nanosleep($clockid, $flags, $ts, $remain_ts);
     
-    my $remain_dt = Time::HiRes::Util->timespec_to_float_seconds($remain_ts);
+    my $remain_nanoseconds = Time::HiRes::Util->timespec_to_nanoseconds($remain_ts);
     
-    return $remain_dt;
+    return $remain_nanoseconds;
   }
   
   static method clock : long () {
