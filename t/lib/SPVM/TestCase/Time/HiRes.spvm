@@ -149,7 +149,7 @@ class TestCase::Time::HiRes {
   }
   
   static method getitimer : int () {
-  
+    
     my $itimerval_float = Time::HiRes->getitimer(TIME->ITIMER_REAL);
     
     warn "[Test Output]getitimer:return:" . dump $itimerval_float;
@@ -167,20 +167,50 @@ class TestCase::Time::HiRes {
   
   static method clock_gettime : int () {
     
+    my $time = Time::HiRes->clock_gettime(TIME->CLOCK_MONOTONIC);
+    
+    warn "[Test Output]clock_gettime:return:" . Format->sprintf("%.5f", [(object)$time]);
+    
+    unless ($time > 0) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method clock_getres : int () {
+    
+    my $res = Time::HiRes->clock_getres(TIME->CLOCK_MONOTONIC);
+    
+    warn "[Test Output]clock_getres:return:" . Format->sprintf("%.30f", [(object)$res]);
+    
+    unless ($res > 0) {
+      return 0;
+    }
     
     return 1;
   }
   
   static method clock_nanosleep : int () {
     
+    my $remain = Time::HiRes->clock_nanosleep(TIME->CLOCK_MONOTONIC, 1_000_000);
+    
+    unless ($remain == 0) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method clock : int () {
+    
+    my $cpu_time = Time::HiRes->clock;
+    
+    warn "[Test Output]clock:return:$cpu_time";
+    
+    unless ($cpu_time > 0) {
+      return 0;
+    }
     
     return 1;
   }

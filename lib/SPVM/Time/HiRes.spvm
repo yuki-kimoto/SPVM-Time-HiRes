@@ -152,28 +152,22 @@ class Time::HiRes {
     
     my $ts = Sys::Time::Timespec->new;
     
-    my $status = Sys::Time->clock_gettime($clk_id, $ts);
+    Sys::Time->clock_gettime($clk_id, $ts);
     
-    my $ret = -1.0;
-    if ($status == 0) {
-      $ret = Time::HiRes::Util->timespec_to_float_seconds($ts);
-    }
+    my $time_float_seconds =  Time::HiRes::Util->timespec_to_float_seconds($ts);
     
-    return $ret;
+    return $time_float_seconds;
   }
   
   static method clock_getres : double ($clk_id : int) {
     
     my $ts = Sys::Time::Timespec->new;
     
-    my $status = Sys::Time->clock_getres($clk_id, $ts);
+    Sys::Time->clock_getres($clk_id, $ts);
     
-    my $ret = -1.0;
-    if ($status == 0) {
-      $ret = Time::HiRes::Util->timespec_to_float_seconds($ts);
-    }
+    my $res_float_seconds = Time::HiRes::Util->timespec_to_float_seconds($ts);
     
-    return $ret;
+    return $res_float_seconds;
   }
   
   static method clock_nanosleep : long ($clockid : int, $nanoseconds : long, $flags : int = 0) {
