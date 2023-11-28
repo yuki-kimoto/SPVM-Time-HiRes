@@ -2,6 +2,7 @@ class TestCase::Time::HiRes {
   use Time::HiRes;
   use Sys;
   use Format;
+  use Sys::Signal::Constant as SIGNAL;
   
   static method gettimeofday : int () {
     
@@ -36,6 +37,19 @@ class TestCase::Time::HiRes {
   static method nanosleep : int () {
     
     my $remain = Time::HiRes->nanosleep(1_000_000);
+    
+    unless ($remain == 0) {
+      return 0;
+    }
+    
+    return 1;
+  }
+  
+  static method ualarm : int () {
+    
+    Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    
+    my $remain = Time::HiRes->ualarm(100_000);
     
     unless ($remain == 0) {
       return 0;
@@ -81,8 +95,6 @@ class TestCase::Time::HiRes {
     
     warn "[Test Output]time:return:" . Format->sprintf("%.5f", [(object)$time]);
     
-    warn Sys->time;
-    
     unless ($time > 0) {
       return 0;
     }
@@ -92,10 +104,24 @@ class TestCase::Time::HiRes {
   
   static method sleep : int () {
     
+    my $remain = Time::HiRes->sleep(0.1);
+    
+    unless ($remain == 0) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method alarm : int () {
+    
+    Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    
+    my $remain = Time::HiRes->alarm(0.1);
+    
+    unless ($remain == 0) {
+      return 0;
+    }
     
     return 1;
   }

@@ -78,6 +78,18 @@ Exceptions:
 
 The exceptions thrown by the L<nanosleep|SPVM::Sys::Time/"nanosleep"> method in the Sys::Time class could be thrown.
 
+=head2 ualarm
+
+  static method ualarm : int ($usecs : int, $interval : int = 0);
+
+Alarm after microseconds $usecs with or without the microseconds interval $interval.
+
+See the L<ualarm|SPVM::Sys::Signal/"ualarm"> method in the Sys::Time class in detail.
+
+Exceptions:
+
+The exceptions thrown by the L<ualarm|SPVM::Sys::Signal/"ualarm"> method in the Sys::Signal class could be thrown.
+
 =head2 tv_interval
 
 C<static method tv_interval : double ($a : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval>, $b : L<Sys::Time::Timeval|SPVM::Sys::Time::Timeval> = undef);>

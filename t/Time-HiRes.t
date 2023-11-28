@@ -14,6 +14,8 @@ ok(SPVM::TestCase::Time::HiRes->usleep);
 
 ok(SPVM::TestCase::Time::HiRes->nanosleep);
 
+ok(SPVM::TestCase::Time::HiRes->ualarm);
+
 ok(SPVM::TestCase::Time::HiRes->tv_interval);
 
 ok(SPVM::TestCase::Time::HiRes->time);
