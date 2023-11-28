@@ -180,10 +180,30 @@ class TestCase::Time::HiRes::Util {
   
   static method timeval_interval : int () {
     
+    my $a_tv = Time::HiRes::Util->microseconds_to_timeval(1_500_000);
+    
+    my $b_tv = Time::HiRes::Util->microseconds_to_timeval(2_000_000);
+    
+    my $interval = Time::HiRes::Util->timeval_interval($a_tv, $b_tv);
+    
+    unless ($interval == 0.5) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method timespec_interval : int () {
+    
+    my $a_ts = Time::HiRes::Util->nanoseconds_to_timespec(1_500_000_000);
+    
+    my $b_ts = Time::HiRes::Util->nanoseconds_to_timespec(2_000_000_000);
+    
+    my $interval = Time::HiRes::Util->timespec_interval($a_ts, $b_ts);
+    
+    unless ($interval == 0.5) {
+      return 0;
+    }
     
     return 1;
   }
