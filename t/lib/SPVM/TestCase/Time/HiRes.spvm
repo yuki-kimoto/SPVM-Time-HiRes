@@ -199,15 +199,24 @@ class TestCase::Time::HiRes {
   
   static method clock_nanosleep : int () {
     
-    my $remain = Time::HiRes->clock_nanosleep(TIME->CLOCK_MONOTONIC, 1_000_000);
+    unless (Sys::OS->is_windows) {
+      my $remain = Time::HiRes->clock_nanosleep(TIME->CLOCK_MONOTONIC, 1_000_000);
+      
+      unless ($remain == 0) {
+        return 0;
+      }
+    }
     
-    unless ($remain == 0) {
-      return 0;
+    {
+      my $remain = Time::HiRes->clock_nanosleep(TIME->CLOCK_REALTIME, 1_000_000);
+      
+      unless ($remain == 0) {
+        return 0;
+      }
     }
     
     return 1;
   }
-  
   static method clock : int () {
     
     my $cpu_time = Time::HiRes->clock;
