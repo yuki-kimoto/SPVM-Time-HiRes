@@ -8,6 +8,8 @@ BEGIN { $ENV{SPVM_BUILD_DIR} = "$FindBin::Bin/.spvm_build"; }
 
 use SPVM 'TestCase::Time::HiRes';
 
+use SPVM 'Sys::OS';
+
 ok(SPVM::TestCase::Time::HiRes->gettimeofday);
 
 ok(SPVM::TestCase::Time::HiRes->usleep);
@@ -24,15 +26,35 @@ ok(SPVM::TestCase::Time::HiRes->sleep);
 
 ok(SPVM::TestCase::Time::HiRes->alarm);
 
-ok(SPVM::TestCase::Time::HiRes->setitimer);
+if (SPVM::Sys::OS->is_windows) {
+  eval { SPVM::TestCase::Time::HiRes->setitimer };
+  like ($@, qr|not supported|);
+}
+else {
+  ok(SPVM::TestCase::Time::HiRes->setitimer);
+}
 
-ok(SPVM::TestCase::Time::HiRes->getitimer);
+if (SPVM::Sys::OS->is_windows) {
+  eval { SPVM::TestCase::Time::HiRes->getitimer };
+  like ($@, qr|not supported|);
+}
+else {
+  ok(SPVM::TestCase::Time::HiRes->getitimer);
+}
 
 ok(SPVM::TestCase::Time::HiRes->clock_gettime);
 
 ok(SPVM::TestCase::Time::HiRes->clock_getres);
 
-ok(SPVM::TestCase::Time::HiRes->clock_nanosleep);
+my $not_supported_clock_nanosleep = SPVM::Sys::OS->defined('__APPLE__') || SPVM::Sys::OS->defined('__FreeBSD__') || SPVM::Sys::OS->defined('__OpenBSD__');
+
+if ($not_supported_clock_nanosleep) {
+  eval { SPVM::TestCase::Time::HiRes->clock_nanosleep };
+  like ($@, qr|not supported|);
+}
+else {
+  ok(SPVM::TestCase::Time::HiRes->clock_nanosleep);
+}
 
 ok(SPVM::TestCase::Time::HiRes->clock);
 
