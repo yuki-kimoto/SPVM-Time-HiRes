@@ -16,7 +16,13 @@ ok(SPVM::TestCase::Time::HiRes->usleep);
 
 ok(SPVM::TestCase::Time::HiRes->nanosleep);
 
-ok(SPVM::TestCase::Time::HiRes->ualarm);
+if (SPVM::Sys::OS->is_windows) {
+  eval { SPVM::TestCase::Time::HiRes->ualarm };
+  like ($@, qr|not supported|);
+}
+else {
+  ok(SPVM::TestCase::Time::HiRes->ualarm);
+}
 
 ok(SPVM::TestCase::Time::HiRes->tv_interval);
 
@@ -24,7 +30,13 @@ ok(SPVM::TestCase::Time::HiRes->time);
 
 ok(SPVM::TestCase::Time::HiRes->sleep);
 
-ok(SPVM::TestCase::Time::HiRes->alarm);
+if (SPVM::Sys::OS->is_windows) {
+  eval { SPVM::TestCase::Time::HiRes->alarm };
+  like ($@, qr|not supported|);
+}
+else {
+  ok(SPVM::TestCase::Time::HiRes->alarm);
+}
 
 if (SPVM::Sys::OS->is_windows) {
   eval { SPVM::TestCase::Time::HiRes->setitimer };
