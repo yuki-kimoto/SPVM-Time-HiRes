@@ -65,39 +65,115 @@ class TestCase::Time::HiRes::Util {
   
   static method float_seconds_to_timespec : int () {
     
+    my $float_seconds = 1.5;
+    my $ts = Time::HiRes::Util->float_seconds_to_timespec($float_seconds);
+    
+    unless ($ts->tv_sec == 1) {
+      return 0;
+    }
+    
+    unless ($ts->tv_nsec == 500_000_000) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method timespec_to_float_seconds : int () {
+    
+    my $float_seconds = 1.5;
+    my $ts = Time::HiRes::Util->float_seconds_to_timespec($float_seconds);
+    
+    my $float_seconds_again = Time::HiRes::Util->timespec_to_float_seconds($ts);
+    
+    unless ($float_seconds_again == 1.5) {
+      return 0;
+    }
     
     return 1;
   }
   
   static method float_seconds_to_timeval : int () {
     
+    my $float_seconds = 1.5;
+    my $tv = Time::HiRes::Util->float_seconds_to_timeval($float_seconds);
+    
+    unless ($tv->tv_sec == 1) {
+      return 0;
+    }
+    
+    unless ($tv->tv_usec == 500_000) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method timeval_to_float_seconds : int () {
+    
+    my $float_seconds = 1.5;
+    my $tv = Time::HiRes::Util->float_seconds_to_timeval($float_seconds);
+    
+    my $float_seconds_again = Time::HiRes::Util->timeval_to_float_seconds($tv);
+    
+    unless ($float_seconds_again == 1.5) {
+      return 0;
+    }
     
     return 1;
   }
   
   static method float_seconds_to_nanoseconds : int () {
     
+    my $float_seconds = 1.5;
+    
+    my $nanoseconds = Time::HiRes::Util->float_seconds_to_nanoseconds($float_seconds);
+    
+    unless ($nanoseconds == 1_500_000_000) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method nanoseconds_to_float_seconds : int () {
     
+    my $float_seconds = 1.5;
+    
+    my $nanoseconds = Time::HiRes::Util->float_seconds_to_nanoseconds($float_seconds);
+    
+    my $float_seconds_again = Time::HiRes::Util->nanoseconds_to_float_seconds($nanoseconds);
+    
+    unless ($float_seconds_again == 1.5) {
+      return 0;
+    }
+    
     return 1;
   }
   static method float_seconds_to_microseconds : int () {
+    
+    my $float_seconds = 1.5;
+    
+    my $microseconds = Time::HiRes::Util->float_seconds_to_microseconds($float_seconds);
+    
+    unless ($microseconds == 1_500_000) {
+      return 0;
+    }
     
     return 1;
   }
   
   static method microseconds_to_float_seconds : int () {
+    
+    my $float_seconds = 1.5;
+    
+    my $microseconds = Time::HiRes::Util->float_seconds_to_microseconds($float_seconds);
+    
+    my $float_seconds_again = Time::HiRes::Util->microseconds_to_float_seconds($microseconds);
+    
+    unless ($float_seconds_again == 1.5) {
+      return 0;
+    }
     
     return 1;
   }
