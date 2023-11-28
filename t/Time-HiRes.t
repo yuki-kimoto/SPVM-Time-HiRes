@@ -16,13 +16,7 @@ ok(SPVM::TestCase::Time::HiRes->usleep);
 
 ok(SPVM::TestCase::Time::HiRes->nanosleep);
 
-if (SPVM::Sys::OS->is_windows) {
-  eval { SPVM::TestCase::Time::HiRes->ualarm };
-  like ($@, qr|not supported|);
-}
-else {
-  ok(SPVM::TestCase::Time::HiRes->ualarm);
-}
+ok(SPVM::TestCase::Time::HiRes->ualarm);
 
 ok(SPVM::TestCase::Time::HiRes->tv_interval);
 

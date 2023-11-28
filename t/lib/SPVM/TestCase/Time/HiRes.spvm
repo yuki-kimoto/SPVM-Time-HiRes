@@ -48,14 +48,20 @@ class TestCase::Time::HiRes {
   
   static method ualarm : int () {
     
-    unless (Sys::OS->is_windows) {
-      Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    if (Sys::OS->is_windows) {
+      eval { Time::HiRes->ualarm(100_000); }
+      unless ($@ && eval_error_id is_error Error::NotSupported) {
+        return 0;
+      }
     }
-    
-    my $remain = Time::HiRes->ualarm(100_000);
-    
-    unless ($remain == 0) {
-      return 0;
+    else {
+      Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+      
+      my $remain = Time::HiRes->ualarm(100_000);
+      
+      unless ($remain == 0) {
+        return 0;
+      }
     }
     
     return 1;
@@ -120,7 +126,7 @@ class TestCase::Time::HiRes {
     
     if (Sys::OS->is_windows) {
       eval { Time::HiRes->alarm(0.1); }
-      unless (Fn->contains($@, "not supported")) {
+      unless ($@ && eval_error_id is_error Error::NotSupported) {
         return 0;
       }
     }
