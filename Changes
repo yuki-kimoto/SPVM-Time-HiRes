@@ -1,7 +1,8 @@
 0.003 2023-11-27
   [Bug Fix]
     * Fix many floating seconds bugs.
-    
+  [Test Improvement]
+    * Fix and add many tests.
 0.002 2023-11-27
   [Incompatible Changes]
     * Implement the time method in the Time::HiRes class.

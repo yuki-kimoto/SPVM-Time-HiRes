@@ -48,7 +48,9 @@ class TestCase::Time::HiRes {
   
   static method ualarm : int () {
     
-    Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    unless (Sys::OS->is_windows) {
+      Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    }
     
     my $remain = Time::HiRes->ualarm(100_000);
     
@@ -116,7 +118,9 @@ class TestCase::Time::HiRes {
   
   static method alarm : int () {
     
-    Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    unless (Sys::OS->is_windows) {
+      Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    }
     
     my $remain = Time::HiRes->alarm(0.1);
     
@@ -129,7 +133,9 @@ class TestCase::Time::HiRes {
   
   static method setitimer : int () {
     
-    Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    unless (Sys::OS->is_windows) {
+      Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    }
     
     my $itimerval_float =  Time::HiRes::ItimervalFloat->new;
     $itimerval_float->set_it_value(0.5);
