@@ -3,20 +3,62 @@ class TestCase::Time::HiRes::Util {
   
   static method nanoseconds_to_timespec : int () {
     
+    my $nanoseconds = 1_000_000_200;
+    my $ts = Time::HiRes::Util->nanoseconds_to_timespec($nanoseconds);
+    
+    unless ($ts->tv_sec == 1) {
+      return 0;
+    }
+    
+    unless ($ts->tv_nsec == 200) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method timespec_to_nanoseconds : int () {
+    
+    my $nanoseconds = 1_000_000_200;
+    
+    my $ts = Time::HiRes::Util->nanoseconds_to_timespec($nanoseconds);
+    
+    my $nanoseconds_again = Time::HiRes::Util->timespec_to_nanoseconds($ts);
+    
+    unless ($nanoseconds_again == 1_000_000_200) {
+      return 0;
+    }
     
     return 1;
   }
   
   static method microseconds_to_timeval : int () {
     
+    my $microseconds = 1_000_200;
+    my $tv = Time::HiRes::Util->microseconds_to_timeval($microseconds);
+    
+    unless ($tv->tv_sec == 1) {
+      return 0;
+    }
+    
+    unless ($tv->tv_usec == 200) {
+      return 0;
+    }
+    
     return 1;
   }
   
   static method timeval_to_microseconds : int () {
+    
+    my $microseconds = 1_000_200;
+    
+    my $tv = Time::HiRes::Util->microseconds_to_timeval($microseconds);
+    
+    my $microseconds_again = Time::HiRes::Util->timeval_to_microseconds($tv);
+    
+    unless ($microseconds_again == 1_000_200) {
+      return 0;
+    }
     
     return 1;
   }
