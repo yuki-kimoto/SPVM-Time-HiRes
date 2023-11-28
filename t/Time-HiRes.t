@@ -34,15 +34,7 @@ ok(SPVM::TestCase::Time::HiRes->clock_gettime);
 
 ok(SPVM::TestCase::Time::HiRes->clock_getres);
 
-my $not_supported_clock_nanosleep = SPVM::Sys::OS->defined('__APPLE__') || SPVM::Sys::OS->defined('__FreeBSD__') || SPVM::Sys::OS->defined('__OpenBSD__');
-
-if ($not_supported_clock_nanosleep) {
-  eval { SPVM::TestCase::Time::HiRes->clock_nanosleep };
-  like ($@, qr|not supported|);
-}
-else {
-  ok(SPVM::TestCase::Time::HiRes->clock_nanosleep);
-}
+ok(SPVM::TestCase::Time::HiRes->clock_nanosleep);
 
 ok(SPVM::TestCase::Time::HiRes->clock);
 
