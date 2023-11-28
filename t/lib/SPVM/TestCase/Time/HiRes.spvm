@@ -118,14 +118,20 @@ class TestCase::Time::HiRes {
   
   static method alarm : int () {
     
-    unless (Sys::OS->is_windows) {
-      Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+    if (Sys::OS->is_windows) {
+      eval { Time::HiRes->alarm(0.1); }
+      unless (Fn->contains($@, "not supported")) {
+        return 0;
+      }
     }
-    
-    my $remain = Time::HiRes->alarm(0.1);
-    
-    unless ($remain == 0) {
-      return 0;
+    else {
+      Sys->signal(SIGNAL->SIGALRM, "IGNORE");
+      
+      my $remain = Time::HiRes->alarm(0.1);
+      
+      unless ($remain == 0) {
+        return 0;
+      }
     }
     
     return 1;

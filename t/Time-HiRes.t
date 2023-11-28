@@ -30,13 +30,7 @@ ok(SPVM::TestCase::Time::HiRes->time);
 
 ok(SPVM::TestCase::Time::HiRes->sleep);
 
-if (SPVM::Sys::OS->is_windows) {
-  eval { SPVM::TestCase::Time::HiRes->alarm };
-  like ($@, qr|not supported|);
-}
-else {
-  ok(SPVM::TestCase::Time::HiRes->alarm);
-}
+ok(SPVM::TestCase::Time::HiRes->alarm);
 
 if (SPVM::Sys::OS->is_windows) {
   eval { SPVM::TestCase::Time::HiRes->setitimer };
