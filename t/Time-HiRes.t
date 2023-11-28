@@ -26,21 +26,9 @@ ok(SPVM::TestCase::Time::HiRes->sleep);
 
 ok(SPVM::TestCase::Time::HiRes->alarm);
 
-if (SPVM::Sys::OS->is_windows) {
-  eval { SPVM::TestCase::Time::HiRes->setitimer };
-  like ($@, qr|not supported|);
-}
-else {
-  ok(SPVM::TestCase::Time::HiRes->setitimer);
-}
+ok(SPVM::TestCase::Time::HiRes->setitimer);
 
-if (SPVM::Sys::OS->is_windows) {
-  eval { SPVM::TestCase::Time::HiRes->getitimer };
-  like ($@, qr|not supported|);
-}
-else {
-  ok(SPVM::TestCase::Time::HiRes->getitimer);
-}
+ok(SPVM::TestCase::Time::HiRes->getitimer);
 
 ok(SPVM::TestCase::Time::HiRes->clock_gettime);
 

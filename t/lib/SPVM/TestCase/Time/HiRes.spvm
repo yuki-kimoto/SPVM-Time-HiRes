@@ -145,22 +145,28 @@ class TestCase::Time::HiRes {
   
   static method setitimer : int () {
     
-    unless (Sys::OS->is_windows) {
+    if (Sys::OS->is_windows) {
+      eval { Time::HiRes->setitimer(0, undef); }
+      unless ($@ && eval_error_id is_error Error::NotSupported) {
+        return 0;
+      }
+    }
+    else {
       Sys->signal(SIGNAL->SIGALRM, "IGNORE");
-    }
-    
-    my $itimerval_float =  Time::HiRes::ItimervalFloat->new;
-    $itimerval_float->set_it_value(0.5);
-    $itimerval_float->set_it_interval(0.5);
-    
-    my $old_itimerval_float = Time::HiRes->setitimer(TIME->ITIMER_REAL, $itimerval_float);
-    
-    unless ($old_itimerval_float->it_value == 0) {
-      return 0;
-    }
-    
-    unless ($old_itimerval_float->it_interval == 0) {
-      return 0;
+      
+      my $itimerval_float =  Time::HiRes::ItimervalFloat->new;
+      $itimerval_float->set_it_value(0.5);
+      $itimerval_float->set_it_interval(0.5);
+      
+      my $old_itimerval_float = Time::HiRes->setitimer(TIME->ITIMER_REAL, $itimerval_float);
+      
+      unless ($old_itimerval_float->it_value == 0) {
+        return 0;
+      }
+      
+      unless ($old_itimerval_float->it_interval == 0) {
+        return 0;
+      }
     }
     
     return 1;
@@ -168,16 +174,24 @@ class TestCase::Time::HiRes {
   
   static method getitimer : int () {
     
-    my $itimerval_float = Time::HiRes->getitimer(TIME->ITIMER_REAL);
-    
-    warn "[Test Output]getitimer:return:" . dump $itimerval_float;
-    
-    unless ($itimerval_float->it_value > 0) {
-      return 0;
+     if (Sys::OS->is_windows) {
+      eval { Time::HiRes->getitimer(0); }
+      unless ($@ && eval_error_id is_error Error::NotSupported) {
+        return 0;
+      }
     }
-    
-    unless ($itimerval_float->it_interval > 0) {
-      return 0;
+    else {
+      my $itimerval_float = Time::HiRes->getitimer(TIME->ITIMER_REAL);
+      
+      warn "[Test Output]getitimer:return:" . dump $itimerval_float;
+      
+      unless ($itimerval_float->it_value > 0) {
+        return 0;
+      }
+      
+      unless ($itimerval_float->it_interval > 0) {
+        return 0;
+      }
     }
     
     return 1;
