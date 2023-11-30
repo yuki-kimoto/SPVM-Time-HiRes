@@ -160,6 +160,12 @@ Exceptions:
 
 The exceptions thrown by the L<clock_gettime|SPVM::Sys::Time/"clock_gettime"> method in the Sys::Time class could be thrown.
 
+=head2 clock_gettime_timespec
+
+C<static method clock_gettime_timespec : Sys::Time::Timespec ($clk_id : int);>
+
+Same as L</"clock_gettime">, but returns a L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> object.
+
 =head2 clock_getres
 
 C<static method clock_getres : double ($clk_id : int)>
@@ -173,6 +179,12 @@ See the L<clock_getres|SPVM::Sys::Time/"clock_getres"> method in the Sys::Time c
 Exceptions:
 
 The exceptions thrown by the L<clock_getres|SPVM::Sys::Time/"clock_getres"> method in the Sys::Time class could be thrown.
+
+=head2 clock_getres_timespec
+
+C<static method clock_getres_timespec : L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> ($clk_id : int);>
+
+Same as L</"clock_getres">, but returns a L<Sys::Time::Timespec|SPVM::Sys::Time::Timespec> object.
 
 =head2 clock_nanosleep
 

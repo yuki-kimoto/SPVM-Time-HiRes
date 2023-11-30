@@ -32,7 +32,11 @@ ok(SPVM::TestCase::Time::HiRes->getitimer);
 
 ok(SPVM::TestCase::Time::HiRes->clock_gettime);
 
+ok(SPVM::TestCase::Time::HiRes->clock_gettime_timespec);
+
 ok(SPVM::TestCase::Time::HiRes->clock_getres);
+
+ok(SPVM::TestCase::Time::HiRes->clock_getres_timespec);
 
 ok(SPVM::TestCase::Time::HiRes->clock_nanosleep);
 

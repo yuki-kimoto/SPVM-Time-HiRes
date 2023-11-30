@@ -210,6 +210,23 @@ class TestCase::Time::HiRes {
     return 1;
   }
   
+  static method clock_gettime_timespec : int () {
+    
+    my $ts = Time::HiRes->clock_gettime_timespec(TIME->CLOCK_MONOTONIC);
+    
+    my $tv_sec = $ts->tv_sec;
+    
+    my $tv_nsec = $ts->tv_nsec;
+    
+    warn "[Test Output]clock_gettime:return:tv_sec:$tv_sec:tv_nsec:$tv_nsec";
+    
+    unless ($tv_sec > 0) {
+      return 0;
+    }
+    
+    return 1;
+  }
+  
   static method clock_getres : int () {
     
     my $res = Time::HiRes->clock_getres(TIME->CLOCK_MONOTONIC);
@@ -217,6 +234,23 @@ class TestCase::Time::HiRes {
     warn "[Test Output]clock_getres:return:" . Format->sprintf("%.30f", [(object)$res]);
     
     unless ($res > 0) {
+      return 0;
+    }
+    
+    return 1;
+  }
+  
+  static method clock_getres_timespec : int () {
+    
+    my $ts = Time::HiRes->clock_getres_timespec(TIME->CLOCK_MONOTONIC);
+    
+    my $tv_sec = $ts->tv_sec;
+    
+    my $tv_nsec = $ts->tv_nsec;
+    
+    warn "[Test Output]clock_getres:return:tv_sec:$tv_sec:tv_nsec:$tv_nsec";
+    
+    unless ($tv_nsec > 0) {
       return 0;
     }
     
