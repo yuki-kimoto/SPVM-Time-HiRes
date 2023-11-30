@@ -1,3 +1,8 @@
+0.004 2023-11-30
+  [Requrement Changes]
+    * Require SPVM::Sys 0.504.
+  [Incompatible Changes]
+    * Remove Time::HiRes::Util. This utilities are moved to Sys::Time::Util.
 0.003 2023-11-27
   [Bug Fix]
     * Fix many floating seconds bugs.

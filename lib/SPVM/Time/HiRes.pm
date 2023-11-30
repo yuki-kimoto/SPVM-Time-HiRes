@@ -204,8 +204,6 @@ The exceptions thrown by the L<clock|SPVM::Sys::Time/"clock"> method in the Sys:
 
 =over 2
 
-=item * L<Time::HiRes::Util|SPVM::Time::HiRes::Util>
-
 =item * L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::ItimervalFloat>
 
 =back
