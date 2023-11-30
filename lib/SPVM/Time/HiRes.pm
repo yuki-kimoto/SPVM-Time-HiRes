@@ -200,11 +200,27 @@ Exceptions:
 
 The exceptions thrown by the L<clock|SPVM::Sys::Time/"clock"> method in the Sys::Time class could be thrown.
 
-=head1 See Also
+=head1 Modules
 
 =over 2
 
 =item * L<Time::HiRes::ItimervalFloat|SPVM::Time::HiRes::ItimervalFloat>
+
+=back
+
+=head1 See Also
+
+=over 2
+
+=item * L<Sys::Time|SPVM::Sys::Time>
+
+=item * L<Sys::Time::Util|SPVM::Sys::Time::Util>
+
+=item * L<Sys::Process|SPVM::Sys::Process>
+
+=item * L<Sys::Signal|SPVM::Sys::Signal>
+
+=item * L<Sys|SPVM::Sys>
 
 =back
 
